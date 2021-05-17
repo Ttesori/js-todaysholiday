@@ -16,12 +16,13 @@ const getDayData = async (day = new Date()) => {
   const prettyDate = todayDate.length === 1 ? '0' + todayDate : todayDate;
   els.dateHeaderEl.textContent = `${prettyDay}, ${prettyMonth} ${prettyDate} ${day.getUTCFullYear()}`;
   try {
-    let res = await fetch(`https://todaysholiday.herokuapp.com/api/${todayMonth + 1}/${todayDate}`);
+    let res = await fetch(`https://todaysholiday.herokuapp.com/holidays/${todayMonth + 1}/${todayDate}`);
     let dayArr = await res.json();
     els.daysEl.innerHTML = '';
+    console.log(dayArr);
     dayArr.forEach(day => {
       let newEl = document.createElement('li');
-      newEl.textContent = day;
+      newEl.textContent = day.name;
       els.daysEl.appendChild(newEl);
     })
   } catch (err) {
