@@ -19,7 +19,6 @@ const getDayData = async (day = new Date()) => {
     let res = await fetch(`https://todaysholiday.herokuapp.com/holidays/${todayMonth + 1}/${todayDate}`);
     let dayArr = await res.json();
     els.daysEl.innerHTML = '';
-    console.log(dayArr);
     dayArr.forEach(day => {
       let newEl = document.createElement('li');
       newEl.textContent = day.name;
