@@ -28,6 +28,7 @@ const getDayData = async (day = new Date()) => {
     console.log(err);
   }
 }
+
 getDayData();
 
 els.getDayBtn.addEventListener('click', () => {
