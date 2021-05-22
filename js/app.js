@@ -37,7 +37,7 @@ getDayData();
 const searchDays = async () => {
   els.searchResultsEl.textContent = '';
   let query = encodeURIComponent(els.searchTextEl.value);
-  let results = await fetch(`http://todaysholiday.herokuapp.com/holidays/search?s=${query}`);
+  let results = await fetch(`https://todaysholiday.herokuapp.com/holidays/search?s=${query}`);
   let days = await results.json();
   if (!days.length) els.searchResultsEl.textContent = 'No results found...';
   days.forEach(day => {
