@@ -2,7 +2,10 @@ const els = {
   daysEl: document.querySelector('.tih-days'),
   getDayBtn: document.querySelector('.tih-submit'),
   getDateInput: document.querySelector('.tih-date-picker'),
-  dateHeaderEl: document.querySelector('.tih-date')
+  dateHeaderEl: document.querySelector('.tih-date'),
+  searchTextEl: document.querySelector('.tih-search-text'),
+  searchBtnEl: document.querySelector('.tih-search-btn'),
+  searchResultsEl: document.querySelector('.tih-search-results')
 }
 
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -31,6 +34,22 @@ const getDayData = async (day = new Date()) => {
 
 getDayData();
 
+const searchDays = async () => {
+  els.searchResultsEl.textContent = '';
+  let query = encodeURIComponent(els.searchTextEl.value);
+  let results = await fetch(`http://todaysholiday.herokuapp.com/holidays/search?s=${query}`);
+  let days = await results.json();
+  if (!days.length) els.searchResultsEl.textContent = 'No results found...';
+  days.forEach(day => {
+    let newLi = document.createElement('li');
+    newLi.textContent = `${day.month}/${day.day}: ${day.name}`;
+    els.searchResultsEl.appendChild(newLi);
+  });
+
+}
+
+els.searchBtnEl.addEventListener('click', searchDays);
+
 els.getDayBtn.addEventListener('click', () => {
   const pickedDate = els.getDateInput.value;
   if (pickedDate) {
@@ -38,4 +57,6 @@ els.getDayBtn.addEventListener('click', () => {
     els.getDateInput.value = '';
   }
 });
+
+
 
